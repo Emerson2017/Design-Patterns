@@ -1,4 +1,5 @@
 ﻿using SharpBucket.V2;
+using SharpBucket.V2.EndPoints;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -72,6 +73,9 @@ namespace versionamento.Service
         {
             Repositorio codRepositorio;
 
+            Repositorio objeto_repositorio;
+            objeto_repositorio = objprojeto.Repositorio.Where(x => x.Tipo.Nome == tipo).SingleOrDefault();
+            
             var sharpBucket = new SharpBucketV2();
             sharpBucket.OAuth2ClientCredentials("6ewwFSyWdwCbCUmGBj", "u8WGYeHTWkjpbQTWPAessbCbMfuvdVjU");
             codRepositorio = objprojeto.Repositorio.Where(x => x.Tipo.Nome == tipo).SingleOrDefault();
@@ -87,13 +91,18 @@ namespace versionamento.Service
 
             }
 
-            var pullRequest = sharpBucket.RepositoriesEndPoint().PullRequestsResource("arcoeducaosistemas", codRepositorio.Codigo).GetPullRequestLog()
-                    .Where(x => x.update != null && x.update.destination.branch.name == "master").OrderByDescending(x => x.update.date).FirstOrDefault();
-
-            if (pullRequest != null && pullRequest.update != null && !string.IsNullOrEmpty(pullRequest.update.description))
+            ListParameters parameters = new ListParameters
             {
-                ListPull.Add(new PullProjeto(pullRequest.update.description, pullRequest.update.date));
-            }
+                Filter = $"destination.branch.name = \"master\"",
+                Sort = "-updated_on",
+                Max = 1
+            };
+
+            var pullRequest = sharpBucket.RepositoriesEndPoint().PullRequestsResource(codUserAPI, objeto_repositorio.Codigo).ListPullRequests(parameters).FirstOrDefault();
+
+
+            if (pullRequest != null && !string.IsNullOrEmpty(pullRequest.description))
+                ListPull.Add(new PullProjeto(pullRequest.description, pullRequest.created_on));
 
         }
 

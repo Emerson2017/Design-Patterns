@@ -21,7 +21,7 @@ namespace versionamento.Controllers
             return View(projeto.ToList());
         }
 
-        
+        // GET: Projeto/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)

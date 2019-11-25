@@ -18,7 +18,6 @@ namespace versionamento.Models
         public int IdProjeto { get; set; }
         public string Codigo { get; set; }
         public Nullable<int> IdTipo { get; set; }
-    
         public virtual Projeto Projeto { get; set; }
         public virtual Tipo Tipo { get; set; }
     }
