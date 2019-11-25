@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="CatalogoDeProdutosModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="CatalogoDeProdutosEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Projeto" EntityType="CatalogoDeProdutosModel.Projeto" />
+    <EntitySet Name="Repositorio" EntityType="CatalogoDeProdutosModel.Repositorio" />
+    <EntitySet Name="Unidade" EntityType="CatalogoDeProdutosModel.Unidade" />
+    <AssociationSet Name="FK_Projeto_Unidade" Association="CatalogoDeProdutosModel.FK_Projeto_Unidade">
+      <End Role="Unidade" EntitySet="Unidade" />
+      <End Role="Projeto" EntitySet="Projeto" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Repositorio_Projeto" Association="CatalogoDeProdutosModel.FK_Repositorio_Projeto">
+      <End Role="Projeto" EntitySet="Projeto" />
+      <End Role="Repositorio" EntitySet="Repositorio" />
+    </AssociationSet>
+    <EntitySet Name="Tipo" EntityType="CatalogoDeProdutosModel.Tipo" />
+    <AssociationSet Name="FK__Repositor__IdTip__3C69FB99" Association="CatalogoDeProdutosModel.FK__Repositor__IdTip__3C69FB99">
+      <End Role="Tipo" EntitySet="Tipo" />
+      <End Role="Repositorio" EntitySet="Repositorio" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Projeto">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Cabecalho" Type="String" Nullable="false" MaxLength="80" FixedLength="false" Unicode="false" />
+    <Property Name="Descricao" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+    <Property Name="IdUnidade" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Unidade" Relationship="CatalogoDeProdutosModel.FK_Projeto_Unidade" FromRole="Projeto" ToRole="Unidade" />
+    <NavigationProperty Name="Repositorio" Relationship="CatalogoDeProdutosModel.FK_Repositorio_Projeto" FromRole="Projeto" ToRole="Repositorio" />
+  </EntityType>
+  <EntityType Name="Repositorio">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdProjeto" Type="Int32" Nullable="false" />
+    <Property Name="Codigo" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Projeto" Relationship="CatalogoDeProdutosModel.FK_Repositorio_Projeto" FromRole="Repositorio" ToRole="Projeto" />
+    <Property Name="IdTipo" Type="Int32" />
+    <NavigationProperty Name="Tipo" Relationship="CatalogoDeProdutosModel.FK__Repositor__IdTip__3C69FB99" FromRole="Repositorio" ToRole="Tipo" />
+  </EntityType>
+  <EntityType Name="Unidade">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nome" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Projeto" Relationship="CatalogoDeProdutosModel.FK_Projeto_Unidade" FromRole="Unidade" ToRole="Projeto" />
+  </EntityType>
+  <Association Name="FK_Projeto_Unidade">
+    <End Type="CatalogoDeProdutosModel.Unidade" Role="Unidade" Multiplicity="1" />
+    <End Type="CatalogoDeProdutosModel.Projeto" Role="Projeto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Unidade">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Projeto">
+        <PropertyRef Name="IdUnidade" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Repositorio_Projeto">
+    <End Type="CatalogoDeProdutosModel.Projeto" Role="Projeto" Multiplicity="1" />
+    <End Type="CatalogoDeProdutosModel.Repositorio" Role="Repositorio" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Projeto">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Repositorio">
+        <PropertyRef Name="IdProjeto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Tipo">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nome" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Repositorio" Relationship="CatalogoDeProdutosModel.FK__Repositor__IdTip__3C69FB99" FromRole="Tipo" ToRole="Repositorio" />
+  </EntityType>
+  <Association Name="FK__Repositor__IdTip__3C69FB99">
+    <End Type="CatalogoDeProdutosModel.Tipo" Role="Tipo" Multiplicity="0..1" />
+    <End Type="CatalogoDeProdutosModel.Repositorio" Role="Repositorio" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tipo">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Repositorio">
+        <PropertyRef Name="IdTipo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

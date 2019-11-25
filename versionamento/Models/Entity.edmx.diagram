@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="ac28703e983547869735a3b4aedc6de7" Name="Diagram1" >
+        <EntityTypeShape EntityType="CatalogoDeProdutosModel.Projeto" Width="1.5" PointX="3.25" PointY="3.625" />
+        <EntityTypeShape EntityType="CatalogoDeProdutosModel.Repositorio" Width="1.5" PointX="3.25" PointY="6" />
+        <EntityTypeShape EntityType="CatalogoDeProdutosModel.Unidade" Width="1.5" PointX="3.25" PointY="1.75" />
+        <AssociationConnector Association="CatalogoDeProdutosModel.FK_Projeto_Unidade" />
+        <AssociationConnector Association="CatalogoDeProdutosModel.FK_Repositorio_Projeto" />
+        <EntityTypeShape EntityType="CatalogoDeProdutosModel.Tipo" Width="1.5" PointX="6.25" PointY="6.375" />
+        <AssociationConnector Association="CatalogoDeProdutosModel.FK__Repositor__IdTip__3C69FB99" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
