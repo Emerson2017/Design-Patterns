@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="CatalogoDeProjetosModelStoreContainer" CdmEntityContainer="CatalogoDeProjetosEntities">
+    <EntitySetMapping Name="Projeto">
+      <EntityTypeMapping TypeName="CatalogoDeProjetosModel.Projeto">
+        <MappingFragment StoreEntitySet="Projeto">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Cabecalho" ColumnName="Cabecalho" />
+          <ScalarProperty Name="Descricao" ColumnName="Descricao" />
+          <ScalarProperty Name="IdUnidade" ColumnName="IdUnidade" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Repositorio">
+      <EntityTypeMapping TypeName="CatalogoDeProjetosModel.Repositorio">
+        <MappingFragment StoreEntitySet="Repositorio">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="IdProjeto" ColumnName="IdProjeto" />
+          <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+          <ScalarProperty Name="IdTipo" ColumnName="IdTipo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tipo">
+      <EntityTypeMapping TypeName="CatalogoDeProjetosModel.Tipo">
+        <MappingFragment StoreEntitySet="Tipo">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Nome" ColumnName="Nome" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Unidade">
+      <EntityTypeMapping TypeName="CatalogoDeProjetosModel.Unidade">
+        <MappingFragment StoreEntitySet="Unidade">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Nome" ColumnName="Nome" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

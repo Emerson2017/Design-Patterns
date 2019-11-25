@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
 
-namespace versionamento.Models
+namespace versionamento.Models.ViewModels
 {
     public class PullProjeto
     {
@@ -11,7 +14,6 @@ namespace versionamento.Models
         }
 
         public string Pull { get; set; }
-        public DateTime PullDate { get; set; } 
-
+        public DateTime PullDate { get; set; }
     }
 }

@@ -1,0 +1,256 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="CatalogoDeProjetosModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Projeto">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Cabecalho" Type="varchar" MaxLength="80" Nullable="false" />
+          <Property Name="Descricao" Type="varchar" MaxLength="1000" />
+          <Property Name="IdUnidade" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Repositorio">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdProjeto" Type="int" Nullable="false" />
+          <Property Name="Codigo" Type="varchar" MaxLength="1000" Nullable="false" />
+          <Property Name="IdTipo" Type="int" />
+        </EntityType>
+        <EntityType Name="Tipo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nome" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Unidade">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nome" Type="varchar" MaxLength="80" />
+        </EntityType>
+        <Association Name="FK__Repositor__IdTip__3C69FB99">
+          <End Role="Tipo" Type="Self.Tipo" Multiplicity="0..1" />
+          <End Role="Repositorio" Type="Self.Repositorio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tipo">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Repositorio">
+              <PropertyRef Name="IdTipo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Projeto_Unidade">
+          <End Role="Unidade" Type="Self.Unidade" Multiplicity="1" />
+          <End Role="Projeto" Type="Self.Projeto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Unidade">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Projeto">
+              <PropertyRef Name="IdUnidade" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Repositorio_Projeto">
+          <End Role="Projeto" Type="Self.Projeto" Multiplicity="1" />
+          <End Role="Repositorio" Type="Self.Repositorio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Projeto">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Repositorio">
+              <PropertyRef Name="IdProjeto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CatalogoDeProjetosModelStoreContainer">
+          <EntitySet Name="Projeto" EntityType="Self.Projeto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Repositorio" EntityType="Self.Repositorio" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tipo" EntityType="Self.Tipo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Unidade" EntityType="Self.Unidade" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Repositor__IdTip__3C69FB99" Association="Self.FK__Repositor__IdTip__3C69FB99">
+            <End Role="Tipo" EntitySet="Tipo" />
+            <End Role="Repositorio" EntitySet="Repositorio" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Projeto_Unidade" Association="Self.FK_Projeto_Unidade">
+            <End Role="Unidade" EntitySet="Unidade" />
+            <End Role="Projeto" EntitySet="Projeto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Repositorio_Projeto" Association="Self.FK_Repositorio_Projeto">
+            <End Role="Projeto" EntitySet="Projeto" />
+            <End Role="Repositorio" EntitySet="Repositorio" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CatalogoDeProjetosModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Projeto">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Cabecalho" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Descricao" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="IdUnidade" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Unidade" Relationship="Self.FK_Projeto_Unidade" FromRole="Projeto" ToRole="Unidade" />
+          <NavigationProperty Name="Repositorio" Relationship="Self.FK_Repositorio_Projeto" FromRole="Projeto" ToRole="Repositorio" />
+        </EntityType>
+        <EntityType Name="Repositorio">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdProjeto" Type="Int32" Nullable="false" />
+          <Property Name="Codigo" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IdTipo" Type="Int32" />
+          <NavigationProperty Name="Projeto" Relationship="Self.FK_Repositorio_Projeto" FromRole="Repositorio" ToRole="Projeto" />
+          <NavigationProperty Name="Tipo" Relationship="Self.FK__Repositor__IdTip__3C69FB99" FromRole="Repositorio" ToRole="Tipo" />
+        </EntityType>
+        <EntityType Name="Tipo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nome" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Repositorio" Relationship="Self.FK__Repositor__IdTip__3C69FB99" FromRole="Tipo" ToRole="Repositorio" />
+        </EntityType>
+        <EntityType Name="Unidade">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nome" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Projeto" Relationship="Self.FK_Projeto_Unidade" FromRole="Unidade" ToRole="Projeto" />
+        </EntityType>
+        <Association Name="FK_Projeto_Unidade">
+          <End Role="Unidade" Type="Self.Unidade" Multiplicity="1" />
+          <End Role="Projeto" Type="Self.Projeto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Unidade">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Projeto">
+              <PropertyRef Name="IdUnidade" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Repositorio_Projeto">
+          <End Role="Projeto" Type="Self.Projeto" Multiplicity="1" />
+          <End Role="Repositorio" Type="Self.Repositorio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Projeto">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Repositorio">
+              <PropertyRef Name="IdProjeto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Repositor__IdTip__3C69FB99">
+          <End Role="Tipo" Type="Self.Tipo" Multiplicity="0..1" />
+          <End Role="Repositorio" Type="Self.Repositorio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tipo">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Repositorio">
+              <PropertyRef Name="IdTipo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CatalogoDeProjetosEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Projeto" EntityType="Self.Projeto" />
+          <EntitySet Name="Repositorio" EntityType="Self.Repositorio" />
+          <EntitySet Name="Tipo" EntityType="Self.Tipo" />
+          <EntitySet Name="Unidade" EntityType="Self.Unidade" />
+          <AssociationSet Name="FK_Projeto_Unidade" Association="Self.FK_Projeto_Unidade">
+            <End Role="Unidade" EntitySet="Unidade" />
+            <End Role="Projeto" EntitySet="Projeto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Repositorio_Projeto" Association="Self.FK_Repositorio_Projeto">
+            <End Role="Projeto" EntitySet="Projeto" />
+            <End Role="Repositorio" EntitySet="Repositorio" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Repositor__IdTip__3C69FB99" Association="Self.FK__Repositor__IdTip__3C69FB99">
+            <End Role="Tipo" EntitySet="Tipo" />
+            <End Role="Repositorio" EntitySet="Repositorio" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CatalogoDeProjetosModelStoreContainer" CdmEntityContainer="CatalogoDeProjetosEntities">
+          <EntitySetMapping Name="Projeto">
+            <EntityTypeMapping TypeName="CatalogoDeProjetosModel.Projeto">
+              <MappingFragment StoreEntitySet="Projeto">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Cabecalho" ColumnName="Cabecalho" />
+                <ScalarProperty Name="Descricao" ColumnName="Descricao" />
+                <ScalarProperty Name="IdUnidade" ColumnName="IdUnidade" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Repositorio">
+            <EntityTypeMapping TypeName="CatalogoDeProjetosModel.Repositorio">
+              <MappingFragment StoreEntitySet="Repositorio">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="IdProjeto" ColumnName="IdProjeto" />
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+                <ScalarProperty Name="IdTipo" ColumnName="IdTipo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tipo">
+            <EntityTypeMapping TypeName="CatalogoDeProjetosModel.Tipo">
+              <MappingFragment StoreEntitySet="Tipo">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Unidade">
+            <EntityTypeMapping TypeName="CatalogoDeProjetosModel.Unidade">
+              <MappingFragment StoreEntitySet="Unidade">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,4 +1,4 @@
-﻿@model List<versionamento.Models.Repositorios_VM>
+﻿@model List<versionamento.Models.ViewModels.RepositoriosVM>
 @{
     ViewBag.Title = "Home Page";
 }
@@ -212,8 +212,8 @@
             width: 100%
         }
 
-    .descriptionPR ul{
-        text-align:center;
+    .descriptionPR ul {
+        text-align: center;
     }
 
     ::-webkit-scrollbar {
@@ -230,10 +230,10 @@
         background: #888;
     }
 
-    /* Handle on hover */
-    ::-webkit-scrollbar-thumb:hover {
-        background: #555;
-    }
+        /* Handle on hover */
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
 </style>
 
 
@@ -244,12 +244,12 @@
             <span>Versões</span>
         </div>
         <div id="contentImg">
-            <img id="logoArco" src="~/Imgs/arco.png">
+            <img id="logoArco" src="images/arco.png">
         </div>
     </header>
     <div class="contentRepositores">
 
-        @foreach (versionamento.Models.Repositorios_VM item in Model)
+        @foreach (var item in Model)
         {
 
             <div class="cardRepository">
@@ -273,14 +273,14 @@
 
 </section>
 
-    <script type="text/javascript">
+<script type="text/javascript">
 
 
             function activeRotate(id) {
                 const icon = $('#icon-' + id);
                 const divRotate = $('#rotation-'+id);
                 const contentDescription = $('#contentDescription-' + id);
-          
+
                     if (divRotate.hasClass('ActivedivRotate')) {
                         divRotate.removeClass('ActivedivRotate');
                         icon.removeClass('transformScale');
@@ -298,6 +298,6 @@
 
 
 
-    </script>
+</script>
 
 

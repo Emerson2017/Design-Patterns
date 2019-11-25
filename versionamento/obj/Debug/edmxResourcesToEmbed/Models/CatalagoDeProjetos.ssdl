@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="CatalogoDeProjetosModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Projeto">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Cabecalho" Type="varchar" MaxLength="80" Nullable="false" />
+    <Property Name="Descricao" Type="varchar" MaxLength="1000" />
+    <Property Name="IdUnidade" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Repositorio">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IdProjeto" Type="int" Nullable="false" />
+    <Property Name="Codigo" Type="varchar" MaxLength="1000" Nullable="false" />
+    <Property Name="IdTipo" Type="int" />
+  </EntityType>
+  <EntityType Name="Tipo">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nome" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Unidade">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nome" Type="varchar" MaxLength="80" />
+  </EntityType>
+  <Association Name="FK__Repositor__IdTip__3C69FB99">
+    <End Role="Tipo" Type="Self.Tipo" Multiplicity="0..1" />
+    <End Role="Repositorio" Type="Self.Repositorio" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tipo">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Repositorio">
+        <PropertyRef Name="IdTipo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Projeto_Unidade">
+    <End Role="Unidade" Type="Self.Unidade" Multiplicity="1" />
+    <End Role="Projeto" Type="Self.Projeto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Unidade">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Projeto">
+        <PropertyRef Name="IdUnidade" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Repositorio_Projeto">
+    <End Role="Projeto" Type="Self.Projeto" Multiplicity="1" />
+    <End Role="Repositorio" Type="Self.Repositorio" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Projeto">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Repositorio">
+        <PropertyRef Name="IdProjeto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="CatalogoDeProjetosModelStoreContainer">
+    <EntitySet Name="Projeto" EntityType="Self.Projeto" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Repositorio" EntityType="Self.Repositorio" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tipo" EntityType="Self.Tipo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Unidade" EntityType="Self.Unidade" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Repositor__IdTip__3C69FB99" Association="Self.FK__Repositor__IdTip__3C69FB99">
+      <End Role="Tipo" EntitySet="Tipo" />
+      <End Role="Repositorio" EntitySet="Repositorio" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Projeto_Unidade" Association="Self.FK_Projeto_Unidade">
+      <End Role="Unidade" EntitySet="Unidade" />
+      <End Role="Projeto" EntitySet="Projeto" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Repositorio_Projeto" Association="Self.FK_Repositorio_Projeto">
+      <End Role="Projeto" EntitySet="Projeto" />
+      <End Role="Repositorio" EntitySet="Repositorio" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
