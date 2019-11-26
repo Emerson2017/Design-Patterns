@@ -77,7 +77,7 @@ namespace versionamento.Service
             objeto_repositorio = objprojeto.Repositorio.Where(x => x.Tipo.Nome == tipo).SingleOrDefault();
             
             var sharpBucket = new SharpBucketV2();
-            sharpBucket.OAuth2ClientCredentials("6ewwFSyWdwCbCUmGBj", "u8WGYeHTWkjpbQTWPAessbCbMfuvdVjU");
+            sharpBucket.OAuth2ClientCredentials(System.Configuration.ConfigurationManager.AppSettings["consumerKey"], System.Configuration.ConfigurationManager.AppSettings["consumerSecretKey"]);
             codRepositorio = objprojeto.Repositorio.Where(x => x.Tipo.Nome == tipo).SingleOrDefault();
 
             if (tipo == "APP")
