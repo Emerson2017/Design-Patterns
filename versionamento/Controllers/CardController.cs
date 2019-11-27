@@ -3,10 +3,10 @@ using versionamento.Service;
 
 namespace versionamento.Controllers
 {
-    public class HomeController : Controller
+    public class CardController : Controller
     {
 
-       readonly Home serviceHome = new Home();
+       readonly Card serviceHome = new Card();
 
         public ActionResult Index()
         {

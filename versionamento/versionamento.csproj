@@ -164,7 +164,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\CardController.cs" />
     <Compile Include="Controllers\ProjetoController.cs" />
     <Compile Include="Controllers\RepositorioController.cs" />
     <Compile Include="Global.asax.cs">
@@ -188,26 +188,26 @@
     <Compile Include="Models\Projeto.cs">
       <DependentUpon>Entity.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\PullProjeto.cs" />
+    <Compile Include="Models\ViewModels\PullProjeto_VM.cs" />
     <Compile Include="Models\Repositorio.cs">
       <DependentUpon>Entity.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Repositorios_VM.cs" />
+    <Compile Include="Models\ViewModels\Repositorios_VM.cs" />
     <Compile Include="Models\Tipo.cs">
       <DependentUpon>Entity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Unidade.cs">
       <DependentUpon>Entity.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Unidade_VM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Service\Home.cs" />
+    <Compile Include="Service\Card.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\main.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -259,7 +259,7 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Card\Index.cshtml" />
     <Content Include="Views\Projeto\Create.cshtml" />
     <Content Include="Views\Projeto\Delete.cshtml" />
     <Content Include="Views\Projeto\Details.cshtml" />

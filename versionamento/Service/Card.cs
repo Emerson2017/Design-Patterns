@@ -2,16 +2,17 @@
 using SharpBucket.V2.EndPoints;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
 using versionamento.Models;
 
 namespace versionamento.Service
 {
-    public class Home
+    public class Card
     {
         private CatalogoDeProdutosEntities dbx = new CatalogoDeProdutosEntities();
-        private const string codUserAPI = "arcoeducaosistemas";
+        private string codUserAPI = ConfigurationManager.AppSettings["teamKey"];
 
         public List<Repositorios_VM> ListarRepositorios()
         {
@@ -26,13 +27,13 @@ namespace versionamento.Service
                 List<PullProjeto> ListPull;
 
 
-               
+
+                ListPull = new List<PullProjeto>();
 
 
                 foreach (var objProjeto in projetos)
                 {
                     objRepositorio = new Repositorios_VM();
-                    ListPull = new List<PullProjeto>();
                     objRepositorio.VersaoAPP = "v0.0";
                     objRepositorio.VersaoAPI = "v0.0";
                     objRepositorio.PullRequest = "Versão não encontrada";
@@ -50,8 +51,8 @@ namespace versionamento.Service
 
                     }
 
-
-                    objRepositorio.PullRequest = (ListPull.Count > 0 ? CommonMark.CommonMarkConverter.Convert(ListPull.OrderByDescending(x => x.PullDate).SingleOrDefault().Pull) : objRepositorio.PullRequest);
+                    DateTime date = ListPull.Max(x => x.PullDate);
+                    objRepositorio.PullRequest = (ListPull.Count > 0 ? CommonMark.CommonMarkConverter.Convert(ListPull.Where(y => y.PullDate == date).SingleOrDefault().Pull) : objRepositorio.PullRequest);
                     objRepositorio.Nome = objProjeto.Cabecalho;
                     objRepositorio.Descricao = objProjeto.Descricao;
 
@@ -77,7 +78,7 @@ namespace versionamento.Service
             objeto_repositorio = objprojeto.Repositorio.Where(x => x.Tipo.Nome == tipo).SingleOrDefault();
             
             var sharpBucket = new SharpBucketV2();
-            sharpBucket.OAuth2ClientCredentials(System.Configuration.ConfigurationManager.AppSettings["consumerKey"], System.Configuration.ConfigurationManager.AppSettings["consumerSecretKey"]);
+            sharpBucket.OAuth2ClientCredentials(ConfigurationManager.AppSettings["consumerKey"], ConfigurationManager.AppSettings["consumerSecretKey"]);
             codRepositorio = objprojeto.Repositorio.Where(x => x.Tipo.Nome == tipo).SingleOrDefault();
 
             if (tipo == "APP")
@@ -101,8 +102,8 @@ namespace versionamento.Service
             var pullRequest = sharpBucket.RepositoriesEndPoint().PullRequestsResource(codUserAPI, objeto_repositorio.Codigo).ListPullRequests(parameters).FirstOrDefault();
 
 
-            if (pullRequest != null && !string.IsNullOrEmpty(pullRequest.description))
-                ListPull.Add(new PullProjeto(pullRequest.description, pullRequest.created_on));
+            if (pullRequest != null && !string.IsNullOrEmpty(pullRequest.title))
+                ListPull.Add(new PullProjeto(pullRequest.title, pullRequest.created_on));
 
         }
 
